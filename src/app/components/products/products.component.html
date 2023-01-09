@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-title>Products</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="searchForm">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a color</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 matInput
+                 formControlName="color"
+                 [matAutocomplete]="color">
+          <mat-autocomplete #color="matAutocomplete">
+            <mat-option *ngFor="let item of colorList$ | async" [value]="item.id">
+              Id: {{ item.id }} Name: {{ item.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a store</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 matInput
+                 formControlName="store"
+                 [matAutocomplete]="store">
+          <mat-autocomplete #store="matAutocomplete">
+            <mat-option *ngFor="let item of storeList$ | async" [value]="item.id">
+              Id: {{ item.id }} Name: {{ item.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Search for product</mat-label>
+          <input matInput type="text" placeholder="Store" formControlName="term">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let item of productList$ | async">
+    Name: {{ item.name }} Price: {{ item.price }}$ StoreId: {{ item.storeId }} ColorId: {{ item.colorId }}
+  </mat-list-item>
+</mat-list>
